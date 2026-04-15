@@ -1,0 +1,116 @@
+{{ define "main" }}
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Réseau de recherche franco-belge</div>
+    <h1>Améliorer la prise en charge <em>post-arrêt cardiaque</em></h1>
+    <p class="hero-desc">AfterROSC fédère 34 unités de réanimation en France et en Belgique autour de la recherche et de l'enseignement sur les soins après arrêt cardiaque : neuroprognostication, neuroprotection, gestion hémodynamique et température ciblée.</p>
+    <div class="hero-actions">
+      <a href="/outils/#avis" class="btn btn-primary">🧠 Demander un avis neuropronostique</a>
+      <a href="/outils/#cahp" class="btn btn-secondary">📊 Calculateur CAHP Score</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-bar">
+  <div class="stat-card"><div class="stat-number" data-count="34">0</div><div class="stat-label">Centres participants</div></div>
+  <div class="stat-card"><div class="stat-number" data-count="98" data-suffix="+">0</div><div class="stat-label">Publications PubMed</div></div>
+  <div class="stat-card"><div class="stat-number" data-count="3993">0</div><div class="stat-label">Patients dans la cohorte</div></div>
+  <div class="stat-card"><div class="stat-number" data-count="7">0</div><div class="stat-label">Années d'activité</div></div>
+</section>
+
+<!-- OUTILS RAPIDES -->
+<section class="section">
+  <div class="section-inner">
+    <span class="section-label">Accès rapide</span>
+    <h2 class="section-title">Nos outils au service des cliniciens</h2>
+    <div class="access-grid">
+      <a href="/outils/#avis" class="access-card featured">
+        <div class="access-icon">🧠</div>
+        <div>
+          <h3>Avis de neuropronostication</h3>
+          <p>Avis collégial par télémédecine en moins de 24–72h. 13 experts du réseau évaluent le pronostic neurologique de vos patients comateux post-arrêt cardiaque.</p>
+          <span class="access-tag">Coordination : Dr S. Benghanem</span>
+        </div>
+      </a>
+      <a href="/outils/#cahp" class="access-card">
+        <div class="access-icon">📊</div>
+        <div>
+          <h3>Calculateur CAHP Score</h3>
+          <p>Évaluation précoce du risque neurologique. Score calibré sur 3 groupes de risque.</p>
+          <span class="access-tag">Interactif</span>
+        </div>
+      </a>
+      <a href="/recherche/" class="access-card">
+        <div class="access-icon">🔬</div>
+        <div>
+          <h3>Études en cours</h3>
+          <p>METAPHORE, IH-TTM, PARACA, HYVAPRESS, HEAVENWARD, PHOENICS… Découvrez nos essais multicentriques.</p>
+          <span class="access-tag">6+ études actives</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CARTE -->
+<section class="section section-dark" id="carte">
+  <div class="section-inner">
+    <span class="section-label">Notre couverture</span>
+    <h2 class="section-title" style="color:white">34 centres en France & Belgique</h2>
+    <p class="section-desc" style="color:rgba(255,255,255,.6)">Un maillage territorial dense pour la recherche clinique post-arrêt cardiaque.</p>
+    <div id="map-container" class="map-container"></div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section class="section">
+  <div class="section-inner">
+    <span class="section-label">Publications récentes</span>
+    <h2 class="section-title">Dernières contributions scientifiques</h2>
+    <div class="pub-list">
+      {{ range first 6 (where .Site.RegularPages "Section" "publications") }}
+      <div class="pub-item">
+        <span class="pub-year">{{ .Params.year }}</span>
+        <div>
+          <div class="pub-title">{{ .Title }}</div>
+          <div class="pub-meta"><strong>{{ .Params.authors }}</strong> — <em>{{ .Params.journal }}</em></div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+    <a href="/publications/" class="see-all">Voir toutes les publications →</a>
+  </div>
+</section>
+
+<!-- MEMBRES -->
+<section class="section">
+  <div class="section-inner">
+    <span class="section-label">Le réseau</span>
+    <h2 class="section-title">Membres du bureau</h2>
+    <div class="members-grid">
+      {{ range .Site.Data.bureau }}
+      <div class="member-card">
+        <div class="member-avatar">{{ .initials }}</div>
+        <div class="member-name">{{ .name }}</div>
+        <div class="member-role">{{ .role }}</div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section">
+  <div class="section-inner">
+    <div class="cta-banner">
+      <div>
+        <h2>Rejoignez le réseau AfterROSC</h2>
+        <p>Vous êtes réanimateur, neurologue ou cardiologue et souhaitez participer à nos projets de recherche ?</p>
+      </div>
+      <a href="{{ .Site.Params.helloasso }}" class="btn btn-primary" target="_blank">Adhérer au réseau — 70 €/an</a>
+    </div>
+  </div>
+</section>
+{{ end }}

@@ -1,0 +1,17 @@
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">AfterROSC</div>
+      <p class="footer-tagline">Cardiac Arrest Research Network · Depuis 2018</p>
+    </div>
+    <ul class="footer-links">
+      {{ range .Site.Menus.main }}
+      <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+      {{ end }}
+      <li><a href="/mentions-legales/">Mentions légales</a></li>
+    </ul>
+    <div class="footer-bottom">
+      © {{ now.Year }} AfterROSC — Association loi 1901 · <a href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email }}</a>
+    </div>
+  </div>
+</footer>

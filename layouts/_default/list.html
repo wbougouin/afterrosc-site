@@ -1,0 +1,24 @@
+{{ define "main" }}
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p>{{ . }}</p>{{ end }}
+  </div>
+</section>
+<section class="section">
+  <div class="section-inner content-body">
+    {{ .Content }}
+    {{ range .Pages }}
+    <div class="pub-item">
+      <span class="pub-year">{{ .Params.year }}</span>
+      <div>
+        <div class="pub-title">{{ .Title }}</div>
+        <div class="pub-meta"><strong>{{ .Params.authors }}</strong> — <em>{{ .Params.journal }}</em>
+          {{ with .Params.pmid }} · <a href="https://pubmed.ncbi.nlm.nih.gov/{{ . }}/" target="_blank">PubMed</a>{{ end }}
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

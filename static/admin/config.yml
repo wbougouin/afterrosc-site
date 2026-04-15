@@ -1,0 +1,51 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: static/images
+public_folder: /images
+
+collections:
+  - name: "publications"
+    label: "Publications"
+    folder: "content/publications"
+    create: true
+    slug: "pub-{{slug}}"
+    fields:
+      - {label: "Titre", name: "title", widget: "string"}
+      - {label: "Auteurs", name: "authors", widget: "string"}
+      - {label: "Journal", name: "journal", widget: "string"}
+      - {label: "Année", name: "year", widget: "number"}
+      - {label: "PMID", name: "pmid", widget: "string", required: false}
+      - {label: "Poids (ordre)", name: "weight", widget: "number", required: false}
+
+  - name: "pages"
+    label: "Pages"
+    files:
+      - label: "Le réseau"
+        name: "reseau"
+        file: "content/reseau.md"
+        fields:
+          - {label: "Titre", name: "title", widget: "string"}
+          - {label: "Description", name: "description", widget: "string"}
+          - {label: "Contenu", name: "body", widget: "markdown"}
+      - label: "Recherche"
+        name: "recherche"
+        file: "content/recherche.md"
+        fields:
+          - {label: "Titre", name: "title", widget: "string"}
+          - {label: "Description", name: "description", widget: "string"}
+          - {label: "Contenu", name: "body", widget: "markdown"}
+      - label: "Outils cliniques"
+        name: "outils"
+        file: "content/outils.md"
+        fields:
+          - {label: "Titre", name: "title", widget: "string"}
+          - {label: "Description", name: "description", widget: "string"}
+          - {label: "Contenu", name: "body", widget: "markdown"}
+      - label: "Contact"
+        name: "contact"
+        file: "content/contact.md"
+        fields:
+          - {label: "Titre", name: "title", widget: "string"}
+          - {label: "Contenu", name: "body", widget: "markdown"}

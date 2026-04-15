@@ -1,0 +1,36 @@
+baseURL = "https://afterrosc.org/"
+languageCode = "fr"
+title = "AfterROSC — Réseau de recherche post-arrêt cardiaque"
+theme = ""
+enableRobotsTXT = true
+
+[params]
+  description = "AfterROSC fédère 34 unités de réanimation en France et en Belgique pour la recherche sur les soins post-arrêt cardiaque."
+  email = "avis@afterrosc.org"
+  helloasso = "https://www.helloasso.com/associations/afterrosc/adhesions/2025-cotisation"
+
+[menu]
+  [[menu.main]]
+    name = "Le réseau"
+    url = "/reseau/"
+    weight = 1
+  [[menu.main]]
+    name = "Recherche"
+    url = "/recherche/"
+    weight = 2
+  [[menu.main]]
+    name = "Publications"
+    url = "/publications/"
+    weight = 3
+  [[menu.main]]
+    name = "Outils cliniques"
+    url = "/outils/"
+    weight = 4
+  [[menu.main]]
+    name = "Contact"
+    url = "/contact/"
+    weight = 5
+
+[build]
+  [build.environment]
+    HUGO_VERSION = "0.139.0"

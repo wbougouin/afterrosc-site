@@ -1,0 +1,196 @@
+{{ define "main" }}
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <h1>Outils cliniques</h1>
+    <p>Avis de neuropronostication et calculateur mCAHP</p>
+  </div>
+</section>
+
+<!-- AVIS NEUROPROGNOSTICATION -->
+<section class="section" id="avis">
+  <div class="section-inner content-body">
+    <h2>Avis de neuropronostication précoce post-ACR</h2>
+    <p>Le réseau AfterROSC propose un avis de <strong>neuropronostication précoce</strong> par télémédecine <strong>organisé en moins de 24–72h</strong>, apportant un conseil sur les aspects pronostiques des patients présentant un trouble de conscience à la phase précoce post-ACR.</p>
+
+    <h3>Les intervenants</h3>
+    <p>La coordination est assurée par le <strong>Dr Sarah Benghanem</strong> (MIR, Hôpital Cochin, APHP Centre, Université Paris Cité).</p>
+    <p><strong>13 intervenants</strong> sont impliqués : Pr A. Cariou (Cochin), Dr S. Benghanem (Cochin), Dr W. Bougouin (Massy), Dr C. Calligaris (Sainte-Anne), Dr J. Chelly (Toulon), Dr C. Daubin (Caen), Dr N. Deye (Lariboisière), Pr G. Geri (Ambroise Paré), Dr B. Hermann (HEGP), Dr JB. Lascarrou (Nantes), Dr M. Paul (Versailles), Dr JH. Raphalen (Necker), Pr B. Rohaut (Pitié-Salpêtrière).</p>
+
+    <h3>Comment solliciter cet avis ?</h3>
+    <ol>
+      <li><strong>Téléchargez</strong> le <a href="/documents/formulaire-avis.docx">formulaire de demande d'avis</a></li>
+      <li><strong>Transmettez-le complété</strong> à <a href="mailto:avis@afterrosc.org">avis@afterrosc.org</a>, en précisant vos indisponibilités dans les prochaines 24–72h</li>
+      <li>Un rendez-vous en <strong>visioconférence</strong> sera proposé très rapidement avec au minimum 3 intervenants</li>
+    </ol>
+
+    <p><em>Mention réglementaire :</em> <small>Cet avis constitue l'avis collégial d'un groupe de professionnels, émis à la demande de l'équipe médicale en charge du patient. Il est purement consultatif et n'engage pas le médecin référent.</small></p>
+  </div>
+</section>
+
+<hr style="max-width:1100px;margin:0 auto;border:none;border-top:1px solid #e8e4dd">
+
+<!-- CALCULATEUR CAHP -->
+<section class="section" id="cahp">
+  <div class="section-inner">
+    <span class="section-label">Outil interactif</span>
+    <h2 class="section-title">Calculateur mCAHP Score</h2>
+    <p class="section-desc">Score modifié du CAHP (Cardiac Arrest Hospital Prognosis) n'incluant pas les durées distinctes de no-flow et de low-flow. Le score est calibré proportionnellement au risque d'évolution neurologique défavorable à distance.</p>
+
+    <div class="cahp-calculator">
+      <div class="cahp-form">
+        <div class="cahp-field">
+          <label for="cahp-age">Âge (années)</label>
+          <input type="number" id="cahp-age" min="0" max="120" value="60" class="cahp-input">
+        </div>
+        <div class="cahp-field">
+          <label for="cahp-rhythm">Rythme initial</label>
+          <select id="cahp-rhythm" class="cahp-input">
+            <option value="0">Choquable (FV / TV sans pouls)</option>
+            <option value="1">Non choquable (asystolie / AESP)</option>
+          </select>
+        </div>
+        <div class="cahp-field">
+          <label for="cahp-location">Lieu de l'arrêt</label>
+          <select id="cahp-location" class="cahp-input">
+            <option value="0">Lieu public</option>
+            <option value="1">Domicile</option>
+          </select>
+        </div>
+        <div class="cahp-field">
+          <label for="cahp-delay">Durée collapsus → RACS (min)</label>
+          <input type="number" id="cahp-delay" min="0" max="180" value="25" class="cahp-input">
+        </div>
+        <div class="cahp-field">
+          <label for="cahp-epi">Dose d'adrénaline (mg)</label>
+          <select id="cahp-epi" class="cahp-input">
+            <option value="0">0 mg</option>
+            <option value="1">1 – 2 mg</option>
+            <option value="2">≥ 3 mg</option>
+          </select>
+        </div>
+        <div class="cahp-field">
+          <label for="cahp-ph">pH artériel à l'admission</label>
+          <input type="number" id="cahp-ph" min="6.0" max="7.8" step="0.01" value="7.20" class="cahp-input">
+        </div>
+
+        <button onclick="calculateCAHP()" class="btn btn-primary" style="margin-top:16px;width:100%;justify-content:center">
+          Calculer le score mCAHP
+        </button>
+      </div>
+
+      <div class="cahp-result" id="cahp-result" style="display:none">
+        <div class="cahp-score-display">
+          <div class="cahp-score-value" id="cahp-score-value">—</div>
+          <div class="cahp-score-label">Score mCAHP</div>
+        </div>
+        <div class="cahp-risk" id="cahp-risk"></div>
+        <div class="cahp-bar-container">
+          <div class="cahp-bar">
+            <div class="cahp-bar-segment cahp-low" style="width:33%"><span>&lt; 80</span></div>
+            <div class="cahp-bar-segment cahp-mid" style="width:34%"><span>80–105</span></div>
+            <div class="cahp-bar-segment cahp-high" style="width:33%"><span>≥ 105</span></div>
+          </div>
+          <div class="cahp-marker" id="cahp-marker"></div>
+        </div>
+        <div class="cahp-disclaimer">
+          <strong>Attention :</strong> les résultats indiqués ne sont pas destinés à être utilisés dans le cadre réglementaire au quotidien. Le résultat est fourni à titre indicatif, et l'utilisation reste de la responsabilité propre de chaque utilisateur.
+        </div>
+        <div class="cahp-sources">
+          <strong>Sources :</strong>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/26497161/" target="_blank">Maupain et al. Eur Heart J 2016</a> ·
+          <a href="https://pubmed.ncbi.nlm.nih.gov/36445800/" target="_blank">Lascarrou et al. CHEST 2023</a> ·
+          <a href="https://pubmed.ncbi.nlm.nih.gov/37819544/" target="_blank">Lascarrou et al. Ann Intensive Care 2023</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.cahp-calculator{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:32px}
+.cahp-form{background:white;border-radius:12px;padding:32px;border:1px solid rgba(0,0,0,.04)}
+.cahp-field{margin-bottom:18px}
+.cahp-field label{display:block;font-size:13px;font-weight:600;color:#1a2332;margin-bottom:6px}
+.cahp-input{width:100%;padding:10px 14px;border:1px solid #e8e4dd;border-radius:8px;font-size:15px;font-family:inherit;background:#f8f7f4;transition:border .2s}
+.cahp-input:focus{outline:none;border-color:#1a6b6a;background:white}
+.cahp-result{background:white;border-radius:12px;padding:32px;border:1px solid rgba(0,0,0,.04);display:flex;flex-direction:column;justify-content:center;gap:20px}
+.cahp-score-display{text-align:center;padding:20px 0}
+.cahp-score-value{font-family:'Playfair Display',serif;font-size:64px;font-weight:800;line-height:1}
+.cahp-score-label{font-size:14px;color:#5a6577;margin-top:4px;font-weight:500}
+.cahp-risk{text-align:center;font-size:15px;font-weight:600;padding:12px 16px;border-radius:8px}
+.cahp-risk.low{background:#e8f4f4;color:#1a6b6a}
+.cahp-risk.mid{background:#fff3e0;color:#b8860b}
+.cahp-risk.high{background:#fde8e8;color:#c0392b}
+.cahp-bar-container{position:relative;padding:10px 0 20px}
+.cahp-bar{display:flex;border-radius:6px;overflow:hidden;height:28px}
+.cahp-bar-segment{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:white}
+.cahp-low{background:#1a6b6a}
+.cahp-mid{background:#c9943e}
+.cahp-high{background:#c0392b}
+.cahp-marker{position:absolute;bottom:0;width:2px;height:36px;background:#1a2332;transition:left .4s}
+.cahp-marker::after{content:'▲';position:absolute;bottom:-2px;left:-6px;font-size:12px;color:#1a2332}
+.cahp-disclaimer{font-size:12px;color:#5a6577;line-height:1.5;padding:12px;background:#f8f7f4;border-radius:8px}
+.cahp-sources{font-size:12px;color:#5a6577}
+.cahp-sources a{color:#1a6b6a}
+@media(max-width:768px){.cahp-calculator{grid-template-columns:1fr}}
+</style>
+
+<script>
+function calculateCAHP() {
+  const age = parseFloat(document.getElementById('cahp-age').value) || 0;
+  const rhythm = parseInt(document.getElementById('cahp-rhythm').value);
+  const location = parseInt(document.getElementById('cahp-location').value);
+  const delay = parseFloat(document.getElementById('cahp-delay').value) || 0;
+  const epi = parseInt(document.getElementById('cahp-epi').value);
+  const ph = parseFloat(document.getElementById('cahp-ph').value) || 7.2;
+
+  // mCAHP scoring based on nomogram coefficients (Maupain 2016 / Lascarrou 2022)
+  let score = 0;
+  // Age: ~0.94 pts/year (from nomogram: age 30→22pts, age 60→47pts, age 90→75pts)
+  score += Math.max(0, age * 0.94 - 8);
+  // Non-shockable rhythm: ~27 pts
+  score += rhythm * 27;
+  // Home setting: ~25 pts
+  score += location * 25;
+  // Collapse-to-ROSC delay: combined coefficient (~0.55 pts/min)
+  score += delay * 0.55;
+  // Epinephrine: 0→0, 1-2mg→28, ≥3mg→43
+  if (epi === 1) score += 28;
+  else if (epi === 2) score += 43;
+  // pH: from nomogram (pH 7.6→0, pH 7.0→50, pH 6.5→65)
+  score += Math.max(0, (7.65 - ph) * 77);
+
+  score = Math.round(score);
+
+  // Display
+  document.getElementById('cahp-result').style.display = 'flex';
+  const scoreEl = document.getElementById('cahp-score-value');
+  const riskEl = document.getElementById('cahp-risk');
+  const markerEl = document.getElementById('cahp-marker');
+
+  scoreEl.textContent = score;
+
+  if (score < 80) {
+    scoreEl.style.color = '#1a6b6a';
+    riskEl.className = 'cahp-risk low';
+    riskEl.textContent = 'Risque faible — évolution défavorable dans ~40% des cas';
+  } else if (score < 105) {
+    scoreEl.style.color = '#b8860b';
+    riskEl.className = 'cahp-risk mid';
+    riskEl.textContent = 'Risque modéré — évolution défavorable dans ~80% des cas';
+  } else {
+    scoreEl.style.color = '#c0392b';
+    riskEl.className = 'cahp-risk high';
+    riskEl.textContent = 'Risque élevé — évolution défavorable dans ~95% des cas';
+  }
+
+  // Position marker (score 0-150 mapped to 0-100%)
+  const pct = Math.min(Math.max(score / 150 * 100, 2), 98);
+  markerEl.style.left = pct + '%';
+
+  scoreEl.style.animation = 'none';
+  scoreEl.offsetHeight;
+  scoreEl.style.animation = 'fadeUp .4s ease-out';
+}
+</script>
+{{ end }}
