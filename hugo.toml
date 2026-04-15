@@ -1,7 +1,6 @@
 baseURL = "https://afterrosc.org/"
 languageCode = "fr"
 title = "AfterROSC — Réseau de recherche post-arrêt cardiaque"
-theme = ""
 enableRobotsTXT = true
 
 [params]
