@@ -25,10 +25,14 @@ enableRobotsTXT = true
     name = "Outils cliniques"
     url = "/outils/"
     weight = 4
+[[menu.main]]
+    name = "La vie après"
+    url = "/vie-apres/"
+    weight = 5
   [[menu.main]]
     name = "Contact"
     url = "/contact/"
-    weight = 5
+    weight = 6
 
 [build]
   [build.environment]
